@@ -40,6 +40,12 @@ HEADLESS = False            # True = 后台运行
 BROWSER_TIMEOUT = 30000     # 30秒
 BROWSER_TYPE = "firefox"    # 可选: "chromium", "firefox", "webkit"
 
+# ═══ Proxy 自动上传 ═══
+# 注册成功后自动将 API Key 上传到 Proxy 网关
+PROXY_AUTO_UPLOAD = False
+PROXY_URL = ""                  # Proxy 地址，如 http://localhost:9874
+PROXY_ADMIN_PASSWORD = ""       # Proxy 管理密码
+
 # ═══ Tavily ═══
 TAVILY_HOME_URL = "https://app.tavily.com/home"
 TAVILY_SIGNUP_URL = "https://app.tavily.com/home"

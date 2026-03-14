@@ -146,9 +146,21 @@ DUCKMAIL_BEARER = "dk_xxx"
 DUCKMAIL_DOMAIN = "duckmail.sbs"
 ```
 
+### 自动上传到 Proxy（可选）
+
+注册成功后自动将 API Key 推送到 Proxy 网关，无需手动导入：
+
+```python
+PROXY_AUTO_UPLOAD = True
+PROXY_URL = "http://localhost:9874"       # Proxy 地址（支持远程）
+PROXY_ADMIN_PASSWORD = "your-password"    # Proxy 管理密码
+```
+
+Generator 和 Proxy 不在同一台机器时，填远程地址即可，如 `http://your-server:9874`。
+
 ## 输出
 
-注册成功的账户保存在 `api_keys.md`：
+注册成功的账户保存在 `api_keys.md`，同时自动上传到 Proxy（如已配置）：
 
 ```
 邮箱,密码,API Key,时间;
