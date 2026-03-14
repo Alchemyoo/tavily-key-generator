@@ -5,6 +5,9 @@ import os
 import sys
 import urllib.request
 import urllib.error
+import subprocess
+import time
+from pathlib import Path
 
 BASE_URL = os.environ.get("TAVILY_PROXY_URL", "http://127.0.0.1:9874").rstrip("/")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
@@ -45,10 +48,26 @@ def token_req(path, token, data):
 
 
 def ensure_proxy_up():
-    code, _ = admin_req("GET", "/api/stats")
-    if code == 200:
-        return
-    print("Proxy is not reachable. Run ./init_proxy.sh first.", file=sys.stderr)
+    try:
+        code, _ = admin_req("GET", "/api/stats")
+        if code == 200:
+            return
+    except Exception:
+        pass
+
+    script = Path(__file__).resolve().parent / "init_proxy.sh"
+    if script.exists():
+        subprocess.run(["/bin/sh", str(script)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        for _ in range(10):
+            time.sleep(1)
+            try:
+                code, _ = admin_req("GET", "/api/stats")
+                if code == 200:
+                    return
+            except Exception:
+                pass
+
+    print("Proxy is not reachable.", file=sys.stderr)
     sys.exit(3)
 
 
