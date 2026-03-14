@@ -33,6 +33,18 @@ curl -H "X-Admin-Password: $ADMIN_PASSWORD" http://127.0.0.1:9874/api/keys
 curl -H "X-Admin-Password: $ADMIN_PASSWORD" http://127.0.0.1:9874/api/tokens
 ```
 
+## 管理脚本（推荐）
+
+```bash
+cd /var/minis/workspace/tavily-key-generator/proxy
+python3 manage_proxy.py stats
+python3 manage_proxy.py list-keys
+python3 manage_proxy.py list-tokens
+python3 manage_proxy.py add-key tvly-REPLACE_WITH_REAL_KEY
+python3 manage_proxy.py create-token --name default
+python3 manage_proxy.py test-search tvly-YOUR_PROXY_TOKEN "latest AI news"
+```
+
 ## Search API
 
 ```bash
